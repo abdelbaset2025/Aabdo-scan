@@ -1,0 +1,8 @@
+{
+  "name": "AI DocScanner & Telegram Bot",
+  "description": "Powerful AI document scanner with a Telegram bot integration. Uses Gemini-3 Vision for OCR, classification, and metadata extraction.",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "majorCapabilities": []
+}

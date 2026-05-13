@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-green: #10b981;
+  --color-brand-indigo: #4f46e5;
+  --color-surface: #f8fafc;
+}
+
+@layer components {
+  .grid-bg {
+    background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+  
+  .perspective-card {
+    perspective: 1000px;
+  }
+  
+  .magic-scan {
+    filter: contrast(1.1) brightness(1.05) grayscale(1);
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.1);
+  }
+  
+  .code-font {
+    font-family: 'JetBrains Mono', ui-monospace, 'Courier New', Courier, monospace;
+  }
+}
