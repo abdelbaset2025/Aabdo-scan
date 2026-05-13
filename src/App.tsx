@@ -131,27 +131,27 @@ export default function App() {
   };
 
   return (
-    <div className="h-screen w-full bg-[#f8fafc] text-slate-900 flex flex-col font-sans overflow-hidden">
+    <div className="min-h-screen w-full bg-[#f8fafc] text-slate-900 flex flex-col font-sans">
       {/* Top Header */}
-      <header className="h-16 bg-slate-900 text-white flex items-center justify-between px-8 shrink-0 shadow-lg z-20">
+      <header className="min-h-16 bg-slate-900 text-white flex flex-col md:flex-row items-center justify-between px-4 md:px-8 py-4 md:py-0 shrink-0 shadow-lg z-20 gap-4 md:gap-0">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center font-bold text-lg">W</div>
-          <h1 className="text-xl font-semibold tracking-tight">
-            AI DocScanner Bot <span className="text-emerald-400 font-mono text-sm uppercase ml-2 px-2 py-0.5 border border-emerald-400/30 rounded">Gemini 3 + Telegram</span>
+          <div className="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center font-bold text-lg shrink-0">W</div>
+          <h1 className="text-lg md:text-xl font-semibold tracking-tight">
+            AI DocScanner Bot <span className="hidden sm:inline text-emerald-400 font-mono text-xs md:text-sm uppercase ml-2 px-2 py-0.5 border border-emerald-400/30 rounded">Gemini 3 + Telegram</span>
           </h1>
         </div>
-        <div className="flex items-center gap-6 text-sm font-medium opacity-80">
+        <div className="flex items-center gap-4 md:gap-6 text-sm font-medium opacity-80 w-full md:w-auto justify-between md:justify-end">
           <button 
             onClick={() => fileInputRef.current?.click()}
-            className="bg-emerald-500 hover:bg-emerald-600 text-slate-900 px-4 py-1.5 rounded-md font-bold transition-all flex items-center gap-2"
+            className="bg-emerald-500 hover:bg-emerald-600 text-slate-900 px-4 py-1.5 rounded-md font-bold transition-all flex items-center gap-2 text-xs md:text-sm"
           >
             <ImageIcon className="w-4 h-4" />
             Upload Source
           </button>
           <input type="file" ref={fileInputRef} className="hidden" accept="image/*" onChange={handleFileUpload} />
           
-          <div className="h-4 w-px bg-slate-700"></div>
-          <span className="flex items-center gap-2">
+          <div className="hidden md:block h-4 w-px bg-slate-700"></div>
+          <span className="flex items-center gap-2 text-xs md:text-sm whitespace-nowrap">
             <div className={`w-2 h-2 rounded-full ${isScanning ? 'bg-indigo-400 animate-pulse' : 'bg-emerald-400'}`}></div> 
             {isScanning ? 'AI Engine Running' : 'System Active'}
           </span>
@@ -159,10 +159,10 @@ export default function App() {
       </header>
 
       {/* Main Content Area */}
-      <main className="flex-1 p-6 grid grid-cols-12 gap-6 grid-bg overflow-y-auto">
+      <main className="flex-1 p-4 md:p-6 grid grid-cols-1 md:grid-cols-12 gap-6 grid-bg">
         
         {/* Left Side: Pipeline Logic */}
-        <div className="col-span-3 flex flex-col gap-4">
+        <div className="col-span-1 md:col-span-4 lg:col-span-3 flex flex-col gap-4 order-2 md:order-1">
           <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-sm flex flex-col h-full">
             <h2 className="text-[10px] font-bold uppercase tracking-widest text-indigo-600 mb-6">Extraction Insights</h2>
             
@@ -245,7 +245,7 @@ export default function App() {
         </div>
 
         {/* Center: Live Action / Preview */}
-        <div className="col-span-6 flex flex-col gap-6">
+        <div className="col-span-1 md:col-span-8 lg:col-span-6 flex flex-col gap-6 order-1 md:order-2">
           <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-sm h-full flex flex-col">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-[10px] font-bold uppercase tracking-widest text-indigo-600">Part 1: Real-time Analysis</h2>
@@ -333,22 +333,25 @@ export default function App() {
         </div>
 
         {/* Right Side: Visual Benchmarks */}
-        <div className="col-span-3 flex flex-col gap-4">
+        <div className="col-span-1 md:col-span-12 lg:col-span-3 flex flex-col gap-4 order-3">
           <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-sm h-full flex flex-col">
             <h2 className="text-[10px] font-bold uppercase tracking-widest text-indigo-600 mb-6">Visual Benchmark</h2>
             
             <div className="flex-1 flex flex-col gap-6 overflow-y-auto pr-1">
-              {/* Before Mock */}
+               {/* Before Mock */}
               <div className="relative group">
                 <div className="flex justify-between items-center mb-2">
                   <p className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">1. Mobile Ingress</p>
-                  <span className="text-[9px] bg-red-100 text-red-600 px-1.5 rounded-sm">Skewed</span>
+                  <span className={`text-[9px] px-1.5 rounded-sm ${image ? 'bg-emerald-100 text-emerald-600' : 'bg-amber-100 text-amber-600'}`}>
+                    {image ? 'Captured' : 'Perspective Detection'}
+                  </span>
                 </div>
                 <div className="w-full aspect-[3/4] bg-slate-100 rounded-lg flex items-center justify-center border border-slate-200 overflow-hidden shadow-inner group-hover:border-slate-300 transition-all">
-                  <div className="w-3/4 h-3/5 bg-white shadow-xl border border-slate-300 transform -rotate-12 translate-x-1 flex items-center justify-center relative">
+                  <div className={`w-3/4 h-3/5 bg-white shadow-xl border border-slate-300 transition-transform duration-700 ${image ? 'transform rotate-0' : 'transform -rotate-12 translate-x-1'} flex items-center justify-center relative`}>
                     <div className="w-4/5 h-px bg-slate-100 absolute top-4"></div>
                     <div className="w-3/5 h-px bg-slate-100 absolute top-8"></div>
                     <div className="w-4/5 h-px bg-slate-100 absolute top-12"></div>
+                    {image && <div className="absolute inset-0 bg-emerald-50/20 flex items-center justify-center text-emerald-500/20"><CheckCircle2 className="w-8 h-8" /></div>}
                   </div>
                 </div>
               </div>
@@ -392,26 +395,26 @@ export default function App() {
         </div>
       </main>
 
-      <footer className="h-10 bg-white border-t border-slate-200 flex items-center px-8 justify-between text-[10px] font-semibold text-slate-500 shrink-0 z-20">
-        <div className="flex gap-4 items-center">
+      <footer className="min-h-10 bg-white border-t border-slate-200 flex flex-col sm:flex-row items-center px-4 md:px-8 py-2 sm:py-0 justify-between text-[10px] font-semibold text-slate-500 shrink-0 z-20 gap-2 sm:gap-4">
+        <div className="flex flex-wrap gap-2 md:gap-4 items-center justify-center">
           <span className="flex items-center gap-1">
             <div className={`w-1.5 h-1.5 rounded-full ${GEMINI_ACTIVE ? 'bg-emerald-500' : 'bg-red-500 animate-pulse'}`}></div>
             GEMINI: {GEMINI_ACTIVE ? 'READY' : 'KEY MISSING'}
           </span>
-          <div className="h-3 w-px bg-slate-200 mx-1"></div>
+          <div className="hidden sm:block h-3 w-px bg-slate-200 mx-1"></div>
           <span className="flex items-center gap-1">
             <div className={`w-1.5 h-1.5 rounded-full ${TELEGRAM_ACTIVE ? 'bg-emerald-500' : 'bg-red-500 animate-pulse'}`}></div>
             TELEGRAM: {TELEGRAM_ACTIVE ? 'ACTIVE' : 'OFFLINE'}
           </span>
           {(!TELEGRAM_ACTIVE || !GEMINI_ACTIVE) && (
-            <span className="text-red-400 font-normal italic ml-2">
-              Missing: {!GEMINI_ACTIVE && 'GEMINI_API_KEY'} {!GEMINI_ACTIVE && !TELEGRAM_ACTIVE && '&'} {!TELEGRAM_ACTIVE && 'TELEGRAM_BOT_TOKEN'} in Settings {'>'} Secrets
+            <span className="text-red-400 font-normal italic">
+              Missing: {!GEMINI_ACTIVE && 'GEMINIAPIKEY'} {!TELEGRAM_ACTIVE && ' & TELEGRAM_BOT_TOKEN'}
             </span>
           )}
         </div>
         <div className="flex gap-4 uppercase tracking-widest items-center">
           <span className="text-emerald-600 flex items-center gap-1 tracking-normal font-sans text-[9px]"><div className="w-1 h-1 bg-emerald-500 rounded-full"></div> VISION-PRO 4.8</span>
-          <div className="h-3 w-px bg-slate-200 mx-1"></div>
+          <div className="hidden sm:block h-3 w-px bg-slate-200 mx-1"></div>
           <span>© 2026 AI-DOCSCAN</span>
         </div>
       </footer>
